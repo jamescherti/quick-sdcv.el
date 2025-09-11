@@ -6,3 +6,10 @@ repos:
     hooks:
       - id: end-of-file-fixer
       - id: trailing-whitespace
+
+  - repo: https://github.com/jamescherti/pre-commit-elisp
+    rev: v1.0.1
+    hooks:
+      - id: elisp-check-parens
+      - id: elisp-byte-compile
+      # - id: elisp-indent
