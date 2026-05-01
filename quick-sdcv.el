@@ -173,7 +173,7 @@ If set to non-nil, the value of SDCV_PAGER is disregarded and not applied."
   "Search with additional dictionaries if no definition is available.")
 
 (defvar quick-sdcv--symbols-keywords
-  `(("^-->.*\n-->"
+  `(("^-->.*$"
      (0 (let* ((heading-end (+ (match-beginning 0) 3))
                (symbol
                 (if (and quick-sdcv-dictionary-prefix-symbol
@@ -188,8 +188,8 @@ If set to non-nil, the value of SDCV_PAGER is disregarded and not applied."
           nil)))))
 
 (defvar quick-sdcv-mode-font-lock-keywords
-  '(("^-->\\(.*\\)\n-" . (1 font-lock-type-face)) ; Dictionary name
-    ("^-->\\(.*\\)[ \t\n]*" . (1 font-lock-function-name-face)) ; word
+  '(("^-->\\(.*\\)" . (1 font-lock-type-face)) ; Dictionary name
+    ("^=>\\(.*\\)" . (1 font-lock-function-name-face)) ; word
     ("\\(^[0-9] \\|[0-9]+:\\|[0-9]+\\.\\)" . (1 font-lock-constant-face)) ; Serial number
     ("^<<\\([^>]*\\)>>$" . (1 font-lock-comment-face)) ; Type name
     ("^/\\([^>]*\\)/$" . (1 font-lock-string-face)) ; Phonetic symbol
@@ -201,18 +201,25 @@ If set to non-nil, the value of SDCV_PAGER is disregarded and not applied."
   (let ((map (make-sparse-keymap)))
     map))
 
+(defun quick-sdcv--outline-level ()
+  "Return the depth to which a statement is nested in the outline.."
+  1)
+
 (define-derived-mode quick-sdcv-mode nil "sdcv"
   "Major mode to look up word through sdcv.
 \\{quick-sdcv-mode-map}"
   (setq font-lock-defaults '(quick-sdcv-mode-font-lock-keywords t))
   (setq buffer-read-only t)
-  (set (make-local-variable 'outline-regexp) "^-->.*\n-->")
-  (set (make-local-variable 'outline-level) #'(lambda() 1))
+
+  (set (make-local-variable 'outline-regexp) "^-->")
+  (set (make-local-variable 'outline-level)
+       #'quick-sdcv--outline-level)
+
   (when (boundp 'evil-lookup-func)
     (setq-local evil-lookup-func 'quick-sdcv-search-at-point))
   (quick-sdcv--toggle-symbol-fontification t)
-  (outline-minor-mode)
-  (quick-sdcv--update-ellipsis))
+  (quick-sdcv--update-ellipsis)
+  (outline-minor-mode 1))
 
 ;;; Utility Functions
 
@@ -254,7 +261,7 @@ When ENABLED is nil: Deconstructs any symbol regions marked by '-->'."
     (save-excursion
       (goto-char (point-min))
       (font-lock-remove-keywords nil quick-sdcv--symbols-keywords)
-      (while (re-search-forward "^-->.*\n-->" nil t)
+      (while (re-search-forward "^-->" nil t)
         (decompose-region (match-beginning 0) (match-end 0)))))
 
   ;; Fontify the buffer
@@ -355,7 +362,7 @@ Argument DICTIONARY-LIST the word that needs to be transformed."
          (result (mapconcat
                   (lambda (result)
                     (let-alist result
-                      (format "-->%s\n-->%s\n%s\n\n" .dict .word .definition)))
+                      (format "-->%s\n=>%s\n%s\n\n" .dict .word .definition)))
                   (apply #'quick-sdcv--call-process args)
                   "")))
     (if (string-empty-p result)
