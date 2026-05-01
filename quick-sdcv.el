@@ -164,6 +164,11 @@ If set to non-nil, the value of SDCV_PAGER is disregarded and not applied."
   :type 'boolean
   :group 'quick-sdcv)
 
+(defcustom quick-sdcv-fold-on-search nil
+  "If non-nil, close all dictionary folds when a search is performed."
+  :type 'boolean
+  :group 'quick-sdcv)
+
 ;;; Variables
 
 (defvar quick-sdcv-current-translate-object nil
@@ -307,6 +312,16 @@ When ENABLED is nil: Deconstructs any symbol regions marked by '-->'."
                      exit-code)))))
     (ignore-errors (json-read))))
 
+(defun quick-sdcv--search-with-dictionary (word dictionary-list)
+  "Search some WORD with DICTIONARY-LIST.
+Argument DICTIONARY-LIST the word that needs to be transformed."
+  (let* ((word (or word (quick-sdcv--get-region-or-word)))
+         (translate-result (quick-sdcv--translate-result word dictionary-list)))
+    (when (and (string= quick-sdcv-fail-notify-string translate-result)
+               (setq word (thing-at-point 'word t)))
+      (setq translate-result (quick-sdcv--translate-result word dictionary-list)))
+    translate-result))
+
 (defun quick-sdcv--search-detail (&optional word)
   "Search WORD in `quick-sdcv-dictionary-complete-list'.
 The result will be displayed in a buffer."
@@ -334,24 +349,20 @@ The result will be displayed in a buffer."
               (erase-buffer)
               (set-buffer-file-coding-system 'utf-8)  ;; Force UTF-8
               (setq quick-sdcv-current-translate-object word)
-              (insert text)
+              (insert (replace-regexp-in-string "\r" "" text))
 
               (goto-char (point-min))
+
+              ;; NEW: Collapse all folds if the user setting is enabled
+              (when quick-sdcv-fold-on-search
+                (unless (bound-and-true-p outline-minor-mode)
+                  (outline-minor-mode 1))
+                (outline-hide-body))
 
               (when quick-sdcv-verbose
                 (message "[SDCV] Finished searching `%s'."
                          quick-sdcv-current-translate-object)))
             (pop-to-buffer buffer)))))))
-
-(defun quick-sdcv--search-with-dictionary (word dictionary-list)
-  "Search some WORD with DICTIONARY-LIST.
-Argument DICTIONARY-LIST the word that needs to be transformed."
-  (let* ((word (or word (quick-sdcv--get-region-or-word)))
-         (translate-result (quick-sdcv--translate-result word dictionary-list)))
-    (when (and (string= quick-sdcv-fail-notify-string translate-result)
-               (setq word (thing-at-point 'word t)))
-      (setq translate-result (quick-sdcv--translate-result word dictionary-list)))
-    translate-result))
 
 (defun quick-sdcv--translate-result (word dictionary-list)
   "Search for WORD in DICTIONARY-LIST. Return filtered string of results."

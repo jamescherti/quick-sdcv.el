@@ -25,7 +25,6 @@ If this enhances your workflow, please show your support by **⭐ starring quick
   - [Installation](#installation)
   - [Usage](#usage)
   - [Customizations](#customizations)
-  - [Usage](#usage-1)
   - [Frequently asked question](#frequently-asked-question)
     - [How can dictionary entries be folded and unfolded?](#how-can-dictionary-entries-be-folded-and-unfolded)
     - [How to customize the buffer display?](#how-to-customize-the-buffer-display)
@@ -68,7 +67,11 @@ To install *quick-sdcv* on Emacs from MELPA:
   ;; allows sections corresponding to individual dictionaries to be folded. The
   ;; ellipsis … indicates a folded section, making it easy to collapse all
   ;; dictionaries and expand only those of interest.)
-  (setq quick-sdcv-ellipsis " ▼"))
+  (setq quick-sdcv-ellipsis " ▼")
+
+  ;; Automatically fold all dictionary entries when performing a search.
+  ;; You can then unfold the dictionaries you want to read.
+  (setq quick-sdcv-fold-on-search t))
 ```
 
 ## Usage
@@ -125,6 +128,14 @@ Customize the *quick-sdcv* dictionaries ellipsis display:
 (setq quick-sdcv-ellipsis " ▼")
 ```
 
+To automatically fold all dictionary entries when a search is performed:
+```emacs-lisp
+;; Automatically fold all dictionary entries when a search is performed.
+;; This is useful if you use many dictionaries and want to see a clean list
+;; of dictionary names first.
+(setq quick-sdcv-fold-on-search t)
+```
+
 To customize the sdcv history size:
 ``` elisp
 ;; Customize the sdcv history size
@@ -154,17 +165,6 @@ To specify a list of dictionaries (NOT RECOMMENDED. It is better to let sdcv sho
                                             "stardict-eng_eng_main"))
 ```
 
-## Usage
-
-Below are the commands you can use:
-
-| Command                   | Description
-| :---                      | :---
-| `quick-sdcv-search-at-point` | Searches the word around the cursor and displays the result in a buffer.
-| `quick-sdcv-search-input`   | Searches the input word and displays the result in a buffer.
-
-If the current mark is active, the `quick-sdcv` will translate the region string; otherwise, they will translate the word around the cursor.
-
 ## Frequently asked question
 
 ### How can dictionary entries be folded and unfolded?
@@ -172,6 +172,11 @@ If the current mark is active, the `quick-sdcv` will translate the region string
 The *quick-sdcv* mode enables `outline-minor-mode` by default, allowing sections corresponding to individual dictionaries to be folded.
 
 While the built-in `outline-minor-mode` functions can be used to open and close these folds, installing **[kirigami.el](https://github.com/jamescherti/kirigami.el)** is highly recommended. It enhances the folding experience by providing a more robust and unified interface for folding text.
+
+To automatically collapse all dictionary entries upon search initialization, enable the following variable:
+```elisp
+(setq quick-sdcv-fold-on-search t)
+```
 
 ### How to customize the buffer display?
 
@@ -232,7 +237,7 @@ The `quick-sdcv` Emacs package is a fork of `sdcv.el` version 3.4, which is avai
 - **Removal of bugs and Warnings**: All Emacs warnings have been eliminated and bugs fixed. (e.g., when `sdcv-search-at-point` cannot locate the word under the cursor)
 - **Code Simplification**: The code has been simplified by removing unused variables and omitting features like posframe, text-to-speech using the 'say' command, the quick-sdcv-env-lang variable, and functions such as (quick-sdcv-scroll-up-one-line, quick-sdcv-scroll-down-one-line, quick-sdcv-next-line and quick-sdcv-prev-line) which are similar Emacs features. This simplification makes `quick-sdcv` easier to understand, maintain, and use by focusing solely on dictionary lookup functionality. Features like `posframe` and text-to-speech, which are not essential to core usage, are better suited as separate packages.
 - **Keybindings removal**: The default keybindings have been removed from `quick-sdcv-mode` to prevent conflicts with other modes and keeps the mode lightweight and adaptable for users’ preferences.
-- **New options**: `quick-sdcv-ellipsis`, quick-sdcv-hist-size, quick-sdcv-exact-search, quick-sdcv-buffer-name-prefix, quick-sdcv-buffer-name-separator, quick-sdcv-buffer-name-suffix, quick-sdcv-verbose
+- **New options**: `quick-sdcv-fold-on-search`, `quick-sdcv-ellipsis`, `quick-sdcv-hist-size`, `quick-sdcv-exact-search`, `quick-sdcv-buffer-name-prefix`, `quick-sdcv-buffer-name-separator`, `quick-sdcv-buffer-name-suffix`, `quick-sdcv-verbose`.
 - **Various improvements**: Unset the SDCV_PAGER environment variable, Ensure the buffer and the SDCV output are in UTF-8, Enhance dictionary representation with UTF-8 characters, Implement error handling for cases when the sdcv program is not found.
 
 ### Community contribution: How I use quick-sdcv to get the Oxford English Dictionary entirely offline
