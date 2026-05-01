@@ -334,10 +334,7 @@ The result will be displayed in a buffer."
               (erase-buffer)
               (set-buffer-file-coding-system 'utf-8)  ;; Force UTF-8
               (setq quick-sdcv-current-translate-object word)
-              (let ((text (quick-sdcv--search-with-dictionary
-                           word
-                           quick-sdcv-dictionary-complete-list)))
-                (insert text))
+              (insert text)
 
               (goto-char (point-min))
 
