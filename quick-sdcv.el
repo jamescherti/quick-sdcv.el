@@ -223,8 +223,8 @@ If set to non-nil, the value of SDCV_PAGER is disregarded and not applied."
   (when (boundp 'evil-lookup-func)
     (setq-local evil-lookup-func 'quick-sdcv-search-at-point))
   (quick-sdcv--toggle-symbol-fontification t)
-  (quick-sdcv--update-ellipsis)
-  (outline-minor-mode 1))
+  (outline-minor-mode 1)
+  (quick-sdcv--update-ellipsis))
 
 ;;; Utility Functions
 
