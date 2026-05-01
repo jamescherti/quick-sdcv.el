@@ -349,7 +349,7 @@ The result will be displayed in a buffer."
               (erase-buffer)
               (set-buffer-file-coding-system 'utf-8)  ;; Force UTF-8
               (setq quick-sdcv-current-translate-object word)
-              (insert (replace-regexp-in-string "\r" "" text))
+              (insert text)
 
               (goto-char (point-min))
 
