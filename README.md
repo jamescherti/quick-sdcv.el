@@ -5,17 +5,15 @@
 ![License](https://img.shields.io/github/license/jamescherti/quick-sdcv.el)
 ![](https://jamescherti.com/misc/made-for-gnu-emacs.svg)
 
-The [quick-sdcv.el](https://github.com/jamescherti/quick-sdcv.el) package serves as a lightweight Emacs interface for the `sdcv` command-line interface, which is the console version of the StarDict dictionary application.
+The [quick-sdcv.el](https://github.com/jamescherti/quick-sdcv.el) package provides a lightweight interface for the `sdcv` command-line tool, **enabling Emacs to function as an offline dictionary**.
 
-**This package enables Emacs to function as an offline dictionary.**
+This package allows for immediate word definitions and translations without requiring an internet connection.
 
-This integration allows users to access sdcv dictionary functionalities directly within the Emacs environment, leveraging the capabilities of `sdcv` to look up words and translations from various dictionary files.
+Key interactive functions include:
+- `quick-sdcv-search-at-point`: Searches the word under the cursor and displays the result in a dedicated buffer.
+- `quick-sdcv-search-input`: Prompts for a custom input string and presents the corresponding dictionary entry in a buffer.
 
-Here are the main interactive functions:
-- `quick-sdcv-search-at-point`: Searches the word around the cursor and displays the result in a buffer.
-- `quick-sdcv-search-input`: Searches the input word and displays the result in a buffer.
-
-If this enhances your workflow, please show your support by **⭐ starring quick-sdcv on GitHub** to help more Emacs users discover its benefits.
+If this package enhances your workflow, please show your support by **⭐ starring quick-sdcv on GitHub** to help more Emacs users discover its benefits.
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 ## Table of Contents
