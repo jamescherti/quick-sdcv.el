@@ -169,13 +169,11 @@ If set to non-nil, the value of SDCV_PAGER is disregarded and not applied."
   :type 'boolean
   :group 'quick-sdcv)
 
-(defcustom quick-sdcv-window-select t
+(defcustom quick-sdcv-select-window t
   "Non-nil means always select sdcv window for viewing.
 If nil select sdcv window only if there is no other window on its frame."
-
   :type 'boolean
-  :group 'quick-sdcv
-  :package-version '(quick-sdcv . '"1.0.5"))
+  :group 'quick-sdcv)
 
 ;;; Variables
 
@@ -370,7 +368,7 @@ The result will be displayed in a buffer."
               (when quick-sdcv-verbose
                 (message "[SDCV] Finished searching `%s'."
                          quick-sdcv-current-translate-object)))
-            (if quick-sdcv-window-select
+            (if quick-sdcv-select-window
                 (pop-to-buffer buffer)
               (display-buffer buffer))))))))
 
