@@ -178,7 +178,7 @@ To automatically collapse all dictionary entries upon search initialization, ena
 
 Since **quick-sdcv** inherits the standard outline keybindings, you should be able to toggle the visibility of a single dictionary section by placing your cursor on the header line and pressing `TAB` (which calls `outline-toggle-children`). If `TAB` is not working as expected, it is possible that another package in your configuration is shadowing that binding in the `sdcv-mode` buffer.
 
-You can also use `M-x RET outline-show-entry` or the [kirigami](https://github.com/jamescherti/kirigami.el) package.
+Alternatively, you can also use `M-x RET outline-show-entry` or the [kirigami](https://github.com/jamescherti/kirigami.el) package.
 
 ### How to customize the buffer display?
 
