@@ -169,8 +169,6 @@ To specify a list of dictionaries (NOT RECOMMENDED. It is better to let sdcv sho
 
 The *quick-sdcv* mode enables `outline-minor-mode` by default, allowing sections corresponding to individual dictionaries to be folded.
 
-While the built-in `outline-minor-mode` functions can be used to open and close these folds, installing **[kirigami.el](https://github.com/jamescherti/kirigami.el)** is highly recommended. It enhances the folding experience by providing a more robust and unified interface for folding text.
-
 To automatically collapse all dictionary entries upon search initialization, enable the following variable:
 ```elisp
 (setq quick-sdcv-fold-on-search t)
@@ -178,7 +176,7 @@ To automatically collapse all dictionary entries upon search initialization, ena
 
 Since **quick-sdcv** inherits the standard outline keybindings, you should be able to toggle the visibility of a single dictionary section by placing your cursor on the header line and pressing `TAB` (which calls `outline-toggle-children`). If `TAB` is not working as expected, it is possible that another package in your configuration is shadowing that binding in the `sdcv-mode` buffer.
 
-Alternatively, you can also use `M-x RET outline-show-entry` or the [kirigami](https://github.com/jamescherti/kirigami.el) package.
+While the built-in `outline-minor-mode` functions can be used to open and close these folds, installing **[kirigami.el](https://github.com/jamescherti/kirigami.el)** is highly recommended. It enhances the folding experience by providing a more robust and unified interface for folding text.
 
 ### How to customize the buffer display?
 
