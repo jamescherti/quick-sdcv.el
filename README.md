@@ -169,7 +169,7 @@ To specify a list of dictionaries (NOT RECOMMENDED. It is better to let sdcv sho
 
 The advantage of `sdcv` is its direct compatibility with the StarDict format.
 
-Over the years, the StarDict ecosystem has accumulated a massive, easily accessible repository of freely distributed packages, including highly specialized, technical, and bilingual databases. Using StarDict dictionaries is easier and offers a richer selection of reference materials compared to finding or manually converting formats to support a native `dictd` setup.
+Over the years, the StarDict ecosystem has accumulated a massive (e.g, [huzheng](http://download.huzheng.org/)), easily accessible repository of freely distributed packages, including highly specialized, technical, and bilingual databases. Using StarDict dictionaries is easier and offers a richer selection of reference materials compared to finding or manually converting formats to support a native `dictd` setup.
 
 ### How can dictionary entries be folded and unfolded?
 
