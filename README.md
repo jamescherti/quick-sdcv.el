@@ -15,28 +15,6 @@ Key interactive functions include:
 
 If this package enhances your workflow, please show your support by **⭐ starring quick-sdcv on GitHub** to help more Emacs users discover its benefits.
 
-<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
-## Table of Contents
-
-- [quick-sdcv.el - Emacs offline dictionary using 'sdcv'](#quick-sdcvel---emacs-offline-dictionary-using-sdcv)
-  - [Prerequisite](#prerequisite)
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [Customizations](#customizations)
-  - [Frequently asked question](#frequently-asked-question)
-    - [How can dictionary entries be folded and unfolded?](#how-can-dictionary-entries-be-folded-and-unfolded)
-    - [How to customize the buffer display?](#how-to-customize-the-buffer-display)
-      - [Option 1: Display at the bottom with a fixed height](#option-1-display-at-the-bottom-with-a-fixed-height)
-      - [Option 2: Replace the current window entirely](#option-2-replace-the-current-window-entirely)
-    - [How to make links appear as links in an sdcv buffer?](#how-to-make-links-appear-as-links-in-an-sdcv-buffer)
-    - [Evil mode: How to configure the default K key to search for words using quick-sdcv?](#evil-mode-how-to-configure-the-default-k-key-to-search-for-words-using-quick-sdcv)
-    - [What is the difference between sdcv and quick-sdcv Emacs packages?](#what-is-the-difference-between-sdcv-and-quick-sdcv-emacs-packages)
-    - [Community contribution: How I use quick-sdcv to get the Oxford English Dictionary entirely offline](#community-contribution-how-i-use-quick-sdcv-to-get-the-oxford-english-dictionary-entirely-offline)
-  - [Comments from users](#comments-from-users)
-  - [Links](#links)
-
-<!-- markdown-toc end -->
-
 ## Prerequisite
 
 - The [sdcv](https://github.com/Dushistov/sdcv) command. (It can usually be installed by installing the `sdcv` package.)
