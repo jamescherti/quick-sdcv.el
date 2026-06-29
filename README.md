@@ -1,5 +1,5 @@
 # quick-sdcv.el - Emacs offline dictionary using 'sdcv'
-![Build Status](https://github.com/jamescherti/quick-sdcv.el/actions/workflows/ci.yml/badge.svg)
+![Build Status](https://github.com/jamescherti/quick-sdcv.el/actions/workflows/melpazoid.yml/badge.svg)
 [![MELPA](https://melpa.org/packages/quick-sdcv-badge.svg)](https://melpa.org/#/quick-sdcv)
 [![MELPA Stable](https://stable.melpa.org/packages/quick-sdcv-badge.svg)](https://stable.melpa.org/#/quick-sdcv)
 ![License](https://img.shields.io/github/license/jamescherti/quick-sdcv.el)
