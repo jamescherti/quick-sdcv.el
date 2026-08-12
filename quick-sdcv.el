@@ -216,11 +216,10 @@ If nil select sdcv window only if there is no other window on its frame."
   "Return the depth to which a statement is nested in the outline.."
   1)
 
-(define-derived-mode quick-sdcv-mode nil "sdcv"
+(define-derived-mode quick-sdcv-mode special-mode "sdcv"
   "Major mode to look up word through sdcv.
 \\{quick-sdcv-mode-map}"
   (setq font-lock-defaults '(quick-sdcv-mode-font-lock-keywords t))
-  (setq buffer-read-only t)
 
   (set (make-local-variable 'outline-regexp) "^-->")
   (set (make-local-variable 'outline-level)
