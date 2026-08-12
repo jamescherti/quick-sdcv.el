@@ -285,10 +285,10 @@ When ENABLED is nil: Deconstructs any symbol regions marked by '-->'."
 (defun quick-sdcv--call-process (&rest arguments)
   "Call `quick-sdcv-program' with ARGUMENTS. Result is parsed as json."
   (unless (executable-find quick-sdcv-program)
-    (error (concat "The program '%s' was not found. Please ensure it is "
-                   "installed and that the path is correctly set "
-                   "in `quick-sdcv-program`.")
-           quick-sdcv-program))
+    (user-error (concat "The program '%s' was not found. Please ensure it is "
+                        "installed and that the path is correctly set "
+                        "in `quick-sdcv-program`.")
+                quick-sdcv-program))
   (with-temp-buffer
     (save-excursion
       (let* ((process-environment
@@ -313,9 +313,12 @@ When ENABLED is nil: Deconstructs any symbol regions marked by '-->'."
                                                 (expand-file-name
                                                  quick-sdcv-dictionary-data-dir)))
                                         arguments))))
-          (if (not (zerop exit-code))
-              (error "Failed to call %s: exit code %d" quick-sdcv-program
-                     exit-code)))))
+          (cond
+           ((= exit-code 2)
+            (user-error "Word not found"))
+           ((not (zerop exit-code))
+            (error "Failed to call %s: exit code %d" quick-sdcv-program
+                   exit-code))))))
     (ignore-errors (json-read))))
 
 (defun quick-sdcv--search-with-dictionary (word dictionary-list)
@@ -345,7 +348,7 @@ The result will be displayed in a buffer."
                    word
                    quick-sdcv-dictionary-complete-list)))
         (unless text
-          (error "The command %s produced no output" quick-sdcv-program))
+          (user-error "The command %s produced no output" quick-sdcv-program))
 
         (when (buffer-live-p buffer)
           (with-current-buffer buffer
