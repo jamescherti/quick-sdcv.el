@@ -10,6 +10,7 @@ The [quick-sdcv.el](https://github.com/jamescherti/quick-sdcv.el) package provid
 This package allows for immediate word definitions and translations without requiring an internet connection.
 
 Key interactive functions include:
+
 - `quick-sdcv-search-at-point`: Searches the word under the cursor and displays the result in a dedicated buffer.
 - `quick-sdcv-search-input`: Prompts for a custom input string and presents the corresponding dictionary entry in a buffer.
 
@@ -248,9 +249,11 @@ His workflow stack:
 - The [sdcv](https://github.com/Dushistov/sdcv) command-line interface (prerequisite).
 
 Related links:
+
 - [How I use quick-sdcv to get the The Oxford English Dictionary entirely offline](https://github.com/jamescherti/quick-sdcv.el/discussions/6): Mingey, a *quick-sdcv* user, shares a workflow to get the Oxford English Dictionary entirely offline by combining *quick-sdcv* for rapid dictionary queries, *nov.el* for an EPUB reading experience, and *olivetti-mode* for distraction-free visual centering. This workflow transforms Emacs into a sophisticated research workstation where centuries of linguistic evolution are accessible at a single keystroke.
 
 Other Emacs packages by the same author:
+
 - [minimal-emacs.d](https://github.com/jamescherti/minimal-emacs.d): This repository hosts a minimal Emacs configuration designed to serve as a foundation for your vanilla Emacs setup and provide a solid base for an enhanced Emacs experience.
 - [compile-angel.el](https://github.com/jamescherti/compile-angel.el): **Speed up Emacs!** This package guarantees that all .el files are both byte-compiled and native-compiled, which significantly speeds up Emacs.
 - [outline-indent.el](https://github.com/jamescherti/outline-indent.el): An Emacs package that provides a minor mode that enables code folding and outlining based on indentation levels for various indentation-based text files, such as YAML, Python, and other indented text files.
