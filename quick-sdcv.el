@@ -294,7 +294,7 @@ When ENABLED is nil: Deconstructs any symbol regions marked by '-->'."
               (if quick-sdcv-ignore-pager
                   (cl-remove-if
                    (lambda (var)
-                     (or (string-match "^SDCV_PAGER=" var)))
+                     (or (string-match-p "^SDCV_PAGER=" var)))
                    process-environment)
                 process-environment)))
         (when quick-sdcv-hist-size
