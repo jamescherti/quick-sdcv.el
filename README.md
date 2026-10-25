@@ -5,7 +5,10 @@
 ![License](https://img.shields.io/github/license/jamescherti/quick-sdcv.el)
 ![](https://jamescherti.com/misc/made-for-gnu-emacs.svg)
 
-The [quick-sdcv.el](https://github.com/jamescherti/quick-sdcv.el) package provides a lightweight interface for the `sdcv` command-line tool, **enabling Emacs to function as an offline dictionary**.
+- Author: James Cherti <[https://www.jamescherti.com/](https://www.jamescherti.com/)>
+- License: GPL
+
+The [quick-sdcv](https://github.com/jamescherti/quick-sdcv.el) package provides a lightweight interface for the `sdcv` command-line tool, **enabling Emacs to function as an offline dictionary**.
 
 This package allows for immediate word definitions and translations without requiring an internet connection.
 
