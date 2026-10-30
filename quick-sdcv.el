@@ -76,6 +76,12 @@
 (require 'outline)
 (require 'subword)
 
+(eval-when-compile
+  (require 'subr-x))
+
+(when (<= emacs-major-version 28)
+  (require 'subr-x))
+
 ;;; Customize
 
 (defgroup quick-sdcv nil
