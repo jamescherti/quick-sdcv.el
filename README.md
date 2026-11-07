@@ -6,7 +6,7 @@
 ![](https://jamescherti.com/misc/made-for-gnu-emacs.svg)
 
 - Author: James Cherti <[https://www.jamescherti.com/](https://www.jamescherti.com/)>
-- License: GPL
+- License: GPL 3.0 or later
 
 The [quick-sdcv](https://github.com/jamescherti/quick-sdcv.el) package provides a lightweight interface for the `sdcv` command-line tool, **enabling Emacs to function as an offline dictionary**.
 
