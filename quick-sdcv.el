@@ -82,6 +82,9 @@
 (when (<= emacs-major-version 28)
   (require 'subr-x))
 
+(defvar shr-inhibit-images)
+(declare-function shr-insert-document "shr" (dom))
+
 ;;; Customize
 
 (defgroup quick-sdcv nil
@@ -181,6 +184,17 @@ If nil select sdcv window only if there is no other window on its frame."
   :type 'boolean
   :group 'quick-sdcv)
 
+(defcustom quick-sdcv-render-html 'auto
+  "Whether to render HTML in dictionary definitions using `shr'.
+If set to `auto', render HTML only if the definition appears to contain HTML
+tags.
+If `t', always render as HTML.
+If `nil', do not render HTML."
+  :type '(choice (const :tag "Auto" auto)
+                 (const :tag "Always" t)
+                 (const :tag "Never" nil))
+  :group 'quick-sdcv)
+
 ;;; Variables
 
 (defvar quick-sdcv-current-translate-object nil
@@ -238,6 +252,40 @@ If nil select sdcv window only if there is no other window on its frame."
   (quick-sdcv--update-ellipsis))
 
 ;;; Utility Functions
+
+(defun quick-sdcv--render-html (text)
+  "Render TEXT as HTML using `shr' if appropriate.
+Argument TEXT is the dictionary definition string to render."
+  (let ((tag-re "<\\(?:[a-zA-Z]+\\b[^>\n]*>\\|/[a-zA-Z]+>\\)"))
+    (if (and quick-sdcv-render-html
+             (stringp text)
+             (or (eq quick-sdcv-render-html t)
+                 (and (eq quick-sdcv-render-html 'auto)
+                      (string-match-p tag-re text)))
+             (fboundp 'libxml-parse-html-region)
+             (or (not (fboundp 'libxml-available-p))
+                 (libxml-available-p))
+             (require 'shr nil t))
+        (with-temp-buffer
+          (insert text)
+          (let ((dom (libxml-parse-html-region (point-min) (point-max))))
+            (if dom
+                (progn
+                  (erase-buffer)
+                  (let ((shr-inhibit-images t))
+                    (shr-insert-document dom))
+                  ;; Preserve shr faces when font-lock-mode is active
+                  (let ((pos (point-min)))
+                    (while (< pos (point-max))
+                      (let ((next (next-single-property-change
+                                   pos 'face nil (point-max)))
+                            (face (get-text-property pos 'face)))
+                        (when face
+                          (put-text-property pos next 'font-lock-face face))
+                        (setq pos next))))
+                  (string-trim-right (buffer-string)))
+              text)))
+      text)))
 
 (defun quick-sdcv--update-ellipsis ()
   "Update the buffer's outline ellipsis."
@@ -392,11 +440,12 @@ The result will be displayed in a buffer."
           (mapconcat
            (lambda (entry)
              (let-alist entry
-               (prog1
-                   (if (equal .dict last-dict)
-                       (format "=>%s\n%s\n\n" .word .definition)
-                     (format "-->%s\n=>%s\n%s\n\n" .dict .word .definition))
-                 (setq last-dict .dict))))
+               (let ((definition (quick-sdcv--render-html .definition)))
+                 (prog1
+                     (if (equal .dict last-dict)
+                         (concat "=>" .word "\n" definition "\n\n")
+                       (concat "-->" .dict "\n=>" .word "\n" definition "\n\n"))
+                   (setq last-dict .dict)))))
            raw-results
            "")))
     (if (string-empty-p result)
