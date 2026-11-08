@@ -136,6 +136,12 @@ To customize the naming convention of the SDCV buffer:
       quick-sdcv-buffer-name-suffix "*")
 ```
 
+To specify an explicit dictionary directory (equivalent passing `--data-dir` to `sdcv`):
+
+```elisp
+(setq quick-sdcv-dictionary-data-dir "~/.stardict/dic")
+```
+
 To specify a list of dictionaries (NOT RECOMMENDED. It is better to let sdcv show all dictionaries):
 ``` elisp
 ;; To specify a list of dictionaries (NOT RECOMMENDED. It is better to let sdcv
@@ -216,6 +222,8 @@ For example, to configure `K` to search for a word using *quick-sdcv* when editi
 The `quick-sdcv` Emacs package is a fork of `sdcv.el` version 3.4, which is available on MELPA. The primary differences between the two packages are as follows:
 
 - **Less dependencies:** Quick-sdcv does not require any external dependencies; sdcv, on the other hand, installs popup, pos-tip, and showtip.
+- **HTML Rendering:** Definitions containing HTML markup are rendered using Emacs's built-in `shr` renderer, formatting tables and text styling properly.
+- **Grouped Dictionary Output:** Multiple search results originating from the same dictionary are consolidated under a single dictionary heading.
 - **Customize the buffer name:**: New variables to customize whether the word is included in the buffer name, as well as the prefix, separator, and suffix of the buffer name (`quick-sdcv-unique-buffers`, quick-sdcv-buffer-name-prefix, quick-sdcv-buffer-name-separator, and quick-sdcv-buffer-name-suffix). When the buffer is dedicated to a specific word, refresh it only when the buffer is created.
 - **Improved Outline Minor Mode**: The `quick-sdcv` package fixes the outline minor mode for dictionary folding, enabling users to collapse all definitions for quicker navigation through dictionaries.
 - **Default Language Settings**: Various issues have been addressed, including changing the default language setting from Chinese (zh) to nil, providing a more neutral starting point.
@@ -223,7 +231,7 @@ The `quick-sdcv` Emacs package is a fork of `sdcv.el` version 3.4, which is avai
 - **Removal of bugs and Warnings**: All Emacs warnings have been eliminated and bugs fixed. (e.g., when `sdcv-search-at-point` cannot locate the word under the cursor)
 - **Code Simplification**: The code has been simplified by removing unused variables and omitting features like posframe, text-to-speech using the 'say' command, the quick-sdcv-env-lang variable, and functions such as (quick-sdcv-scroll-up-one-line, quick-sdcv-scroll-down-one-line, quick-sdcv-next-line and quick-sdcv-prev-line) which are similar Emacs features. This simplification makes `quick-sdcv` easier to understand, maintain, and use by focusing solely on dictionary lookup functionality. Features like `posframe` and text-to-speech, which are not essential to core usage, are better suited as separate packages.
 - **Keybindings removal**: The default keybindings have been removed from `quick-sdcv-mode` to prevent conflicts with other modes and keeps the mode lightweight and adaptable for users' preferences.
-- **New options**: `quick-sdcv-fold-on-search`, `quick-sdcv-ellipsis`, `quick-sdcv-hist-size`, `quick-sdcv-exact-search`, `quick-sdcv-buffer-name-prefix`, `quick-sdcv-buffer-name-separator`, `quick-sdcv-buffer-name-suffix`, `quick-sdcv-verbose`.
+- **New options**: `quick-sdcv-render-html`, `quick-sdcv-fold-on-search`, `quick-sdcv-ellipsis`, `quick-sdcv-hist-size`, `quick-sdcv-exact-search`, `quick-sdcv-only-data-dir`, `quick-sdcv-buffer-name-prefix`, `quick-sdcv-buffer-name-separator`, `quick-sdcv-buffer-name-suffix`, `quick-sdcv-verbose`.
 - **Various improvements**: Unset the SDCV_PAGER environment variable, Ensure the buffer and the SDCV output are in UTF-8, Enhance dictionary representation with UTF-8 characters, Implement error handling for cases when the sdcv program is not found.
 
 ### Community contribution: How I use quick-sdcv to get the Oxford English Dictionary entirely offline
