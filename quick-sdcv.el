@@ -384,14 +384,21 @@ The result will be displayed in a buffer."
               (display-buffer buffer))))))))
 
 (defun quick-sdcv--translate-result (word dictionary-list)
-  "Search for WORD in DICTIONARY-LIST. Return filtered string of results."
+  "Search for WORD in DICTIONARY-LIST. Return grouped string of results."
   (let* ((args (cons word (mapcan (lambda (d) (list "-u" d)) dictionary-list)))
-         (result (mapconcat
-                  (lambda (result)
-                    (let-alist result
-                      (format "-->%s\n=>%s\n%s\n\n" .dict .word .definition)))
-                  (apply #'quick-sdcv--call-process args)
-                  "")))
+         (raw-results (apply #'quick-sdcv--call-process args))
+         (last-dict nil)
+         (result
+          (mapconcat
+           (lambda (entry)
+             (let-alist entry
+               (prog1
+                   (if (equal .dict last-dict)
+                       (format "=>%s\n%s\n\n" .word .definition)
+                     (format "-->%s\n=>%s\n%s\n\n" .dict .word .definition))
+                 (setq last-dict .dict))))
+           raw-results
+           "")))
     (if (string-empty-p result)
         quick-sdcv-fail-notify-string
       result)))
