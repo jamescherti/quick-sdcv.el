@@ -302,7 +302,10 @@ When ENABLED is nil: Deconstructs any symbol regions marked by '-->'."
                    (lambda (var)
                      (or (string-match-p "^SDCV_PAGER=" var)))
                    process-environment)
-                process-environment)))
+                process-environment))
+             ;; Run the subprocess from the temporary directory so it can start
+             ;; even if the buffer's working directory has been deleted.
+             (default-directory (file-name-as-directory temporary-file-directory)))
         (when quick-sdcv-hist-size
           (setenv "SDCV_HISTSIZE" (number-to-string quick-sdcv-hist-size)))
         (let ((exit-code (apply #'call-process quick-sdcv-program nil t nil
