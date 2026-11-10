@@ -268,12 +268,17 @@ Argument TEXT is the dictionary definition string to render."
              (require 'shr nil t))
         (with-temp-buffer
           (insert text)
-          (let ((dom (libxml-parse-html-region (point-min) (point-max))))
+          (let ((dom (condition-case nil
+                         (libxml-parse-html-region (point-min) (point-max))
+                       (error nil))))
             (if dom
                 (progn
                   (erase-buffer)
                   (let ((shr-inhibit-images t))
-                    (shr-insert-document dom))
+                    (condition-case nil
+                        (shr-insert-document dom)
+                      ;; Fallback to plain text if shr fails to render the DOM
+                      (error (insert text))))
                   ;; Preserve shr faces when font-lock-mode is active
                   (let ((pos (point-min)))
                     (while (< pos (point-max))
