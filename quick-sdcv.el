@@ -5,7 +5,7 @@
 
 ;; Filename: quick-sdcv.el
 ;; Description: Interface for sdcv (StartDict console version).
-;; Package-Requires: ((emacs "25.1"))
+;; Package-Requires: ((emacs "27.1"))
 ;; Maintainer: James Cherti
 ;; Original Author: Andy Stewart
 ;; Version: 1.0.8
