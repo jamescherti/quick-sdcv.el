@@ -8,7 +8,7 @@
 ;; Package-Requires: ((emacs "27.1"))
 ;; Maintainer: James Cherti
 ;; Original Author: Andy Stewart
-;; Version: 1.0.8
+;; Version: 1.0.9
 ;; URL: https://github.com/jamescherti/quick-sdcv.el
 ;; Keywords: tools, convenience, text
 
