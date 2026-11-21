@@ -6,8 +6,7 @@
 ;; Filename: quick-sdcv.el
 ;; Description: Interface for sdcv (StartDict console version).
 ;; Package-Requires: ((emacs "27.1"))
-;; Maintainer: James Cherti
-;; Original Author: Andy Stewart
+;; Author: James Cherti <https://www.jamescherti.com/contact/>
 ;; Version: 1.0.9
 ;; URL: https://github.com/jamescherti/quick-sdcv.el
 ;; Keywords: tools, convenience, text
@@ -419,7 +418,7 @@ The result will be displayed in a buffer."
               (erase-buffer)
               (set-buffer-file-coding-system 'utf-8)  ;; Force UTF-8
               (setq quick-sdcv-current-translate-object word)
-              (insert text)
+              (insert "# " word "\n\n" text)
 
               (goto-char (point-min))
 
@@ -445,11 +444,13 @@ The result will be displayed in a buffer."
           (mapconcat
            (lambda (entry)
              (let-alist entry
-               (let ((definition (quick-sdcv--render-html .definition)))
+               (let ((rendered (quick-sdcv--render-html .definition)))
                  (prog1
-                     (if (equal .dict last-dict)
-                         (concat "=>" .word "\n" definition "\n\n")
-                       (concat "-->" .dict "\n=>" .word "\n" definition "\n\n"))
+                     (concat (unless (equal .dict last-dict)
+                               (concat "-->" .dict "\n"))
+                             "=>" .word "\n\n"
+                             (string-trim-left rendered "\\(?:[ \t]*\r?\n\\)+")
+                             "\n\n")
                    (setq last-dict .dict)))))
            raw-results
            "")))
