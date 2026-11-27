@@ -248,6 +248,7 @@ If `nil', do not render HTML."
     (setq-local evil-lookup-func 'quick-sdcv-search-at-point))
   (quick-sdcv--toggle-symbol-fontification t)
   (outline-minor-mode 1)
+  (visual-line-mode 1)
   (quick-sdcv--update-ellipsis))
 
 ;;; Utility Functions
